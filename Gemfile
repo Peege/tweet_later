@@ -21,3 +21,7 @@ group :test do
   gem 'faker'
   gem 'rspec'
 end
+
+gem 'twitter'
+gem 'omniauth'
+gem 'omniauth-twitter'

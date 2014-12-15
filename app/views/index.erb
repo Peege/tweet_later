@@ -1,23 +1,23 @@
 <div class="container">
-  <h1>Welcome to Sinatra!</h1>
-  <p>Hello, world!</p>
+  <h1>Welcome to Tweet</h1>
 
-  <table>
-    <tr>
-      <th>File Description</th>
-      <th>File Location</th>
-    </tr>
-    <tr>
-      <td>This view file</td>
-      <td><code><%= __FILE__.gsub(Sinatra::Application.root, '') %></code></td>
-    </tr>
-    <tr>
-      <td>The layout file</td>
-      <td><code><%= File.expand_path('../layout.erb', __FILE__).gsub(Sinatra::Application.root, '') %></code></td>
-    </tr>
-    <tr>
-      <td>The current controller</td>
-      <td><code><%= File.expand_path('../../controllers/index.rb', __FILE__).gsub(Sinatra::Application.root, '') %></code></td>
-    </tr>
-  </table>
+  <%if session[:username]%>
+    <p>Welcome! <%= session[:username]%></p><a href ='/logout'><button type="button" class="btn btn-primary">Logout</button></a><hr>
+
+    <p><b>Recent Tweets</b></p>
+    <% @user.tweets.reverse.each do |tweet|%>
+      <%= tweet.text %><br><br>
+    <%end%>
+
+    <hr><p><b>Tweet Now!</b></p><br>
+    <form id='tweetform' action='/tweet' method='post'>
+      <input id="tweet_text" type='text' name='tweet' placeholder='Tweet  Here'>
+      <input type='submit' value='Submit' class='button'>
+    </form>
+  <%else%>
+    <a href ='/login'><button type="button" class="btn btn-primary">Sign In with Twitter</button></a>
+  <%end%>
+
 </div>
+
+
