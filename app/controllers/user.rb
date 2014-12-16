@@ -25,5 +25,5 @@ end
 
 post '/tweet' do
   User.find_by_nickname(session[:username]).post_tweet(params[:tweet])
-  erb :index
+  redirect to ('/')
 end

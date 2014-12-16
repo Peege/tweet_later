@@ -37,13 +37,13 @@ require APP_ROOT.join('config', 'database')
 
 if Sinatra::Application.development?
   API_KEYS = YAML::load(File.open('config/api_keys.yaml'))
-  twitter_key = API_KEYS['development']['TWITTER_KEY']
-  twitter_secret = API_KEYS['development']['TWITTER_SECRET']
+  TWITTER_KEYS = API_KEYS['development']['TWITTER_KEY']
+  TWITTER_SECRETS = API_KEYS['development']['TWITTER_SECRET']
 else
-  twitter_key = ENV['TWITTER_KEY']
-  twitter_secret = ENV['TWITTER_SECRET']
+  TWITTER_KEYS = ENV['TWITTER_KEY']
+  TWITTER_SECRETS = ENV['TWITTER_SECRET']
 end
 
 use OmniAuth::Builder do
-  provider :twitter, twitter_key, twitter_secret
+  provider :twitter, TWITTER_KEYS, TWITTER_SECRETS
 end
