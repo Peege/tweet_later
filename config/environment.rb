@@ -35,9 +35,15 @@ Dir[APP_ROOT.join('app', 'helpers', '*.rb')].each { |file| require file }
 # Set up the database and models
 require APP_ROOT.join('config', 'database')
 
-API_KEYS = YAML::load(File.open('config/api_keys.yaml'))
-
+if Sinatra::Application.development?
+  API_KEYS = YAML::load(File.open('config/api_keys.yaml'))
+  twitter_key = API_KEYS['development']['TWITTER_KEY']
+  twitter_secret = API_KEYS['development']['TWITTER_SECRET']
+else
+  twitter_key = ENV['TWITTER_KEY']
+  twitter_secret = ENV['TWITTER_SECRET']
+end
 
 use OmniAuth::Builder do
-  provider :twitter, API_KEYS['development']['TWITTER_KEY'], API_KEYS['development']['TWITTER_SECRET']
+  provider :twitter, twitter_key, twitter_secret
 end
