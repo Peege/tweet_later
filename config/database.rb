@@ -45,13 +45,13 @@ if Sinatra::Application.development?
     :encoding => 'utf8'
   )
 else
-  ActiveRecord::Base.establish_connection(
-    :adapter  => db.scheme == 'postgres' ? 'postgresql' : db.scheme,
-    :host     => ENV['DATABASE_HOST'],
-    :port     => ENV['DATABASE_PORT'],
-    :username => ENV['DATABASE_USERNAME'],
-    :password => ENV['DATABASE_PASSWORD'],
-    :database => ENV['DATABASE_NAME'],
-    :encoding => 'utf8'
-  )
+ActiveRecord::Base.establish_connection(
+  :adapter  => db.scheme == 'postgres' ? 'postgresql' : db.scheme,
+  :host     => db.host,
+  :port     => db.port,
+  :username => db.user,
+  :password => db.password,
+  :database => DB_NAME,
+  :encoding => 'utf8'
+)
 end
