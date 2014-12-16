@@ -5,10 +5,11 @@
     <p>Welcome! <%= session[:username]%></p><a href ='/logout'><button type="button" class="btn btn-primary">Logout</button></a><hr>
 
     <p><b>Recent Tweets</b></p>
-    <% @user.tweets.reverse.each do |tweet|%>
-      <%= tweet.text %><br><br>
-    <%end%>
-
+    <% if @user %>
+      <% @user.tweets.reverse.each do |tweet|%>
+        <%= tweet.text %><br><br>
+      <%end%>
+    <% end %>
     <hr><p><b>Tweet Now!</b></p><br>
     <form id='tweetform' action='/tweet' method='post'>
       <input id="tweet_text" type='text' name='tweet' placeholder='Tweet  Here'>
