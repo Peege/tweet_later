@@ -25,3 +25,6 @@ end
 gem 'twitter'
 gem 'omniauth'
 gem 'omniauth-twitter'
+
+gem 'sidekiq'
+gem 'redis'

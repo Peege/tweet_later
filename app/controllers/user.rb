@@ -24,6 +24,18 @@ get '/auth/failure' do
 end
 
 post '/tweet' do
-  User.find_by_nickname(session[:username]).post_tweet(params[:tweet])
+  User.find_by_nickname(session[:username]).tweet(params[:tweet])
+  redirect to ('/')
+end
+
+get '/status/:job_id' do
+  # return the status of a job to an AJAX call
+
+  job_is_complete(params[:job_id]).to_s
+end
+
+post '/post_tweet_later' do
+  User.find_by_nickname(session[:username]).post_tweet_later(params[:tweet], params[:time])
+
   redirect to ('/')
 end

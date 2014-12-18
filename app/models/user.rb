@@ -31,6 +31,15 @@ class User < ActiveRecord::Base
     self.fetch_tweets!
   end
 
+  def tweet(text)
+    tweet = Tweet.create!(text: text, user_id: self.id)
+    TweetWorker.perform_async(tweet.id)
+  end
+
+  def post_tweet_later(text, time)
+    tweet = Tweet.create!(text: text, user_id: self.id)
+    TweetWorker.perform_at(time.to_i.seconds, tweet.id)
+  end
 
   private
   def client
@@ -41,6 +50,5 @@ class User < ActiveRecord::Base
     config.access_token_secret = self.access_token_secret
     end
   end
-
 
 end

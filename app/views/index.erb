@@ -1,23 +1,37 @@
 <div class="container">
   <h1>Welcome to Tweet</h1>
 
-  <%if session[:username]%>
-    <p>Welcome! <%= session[:username]%></p><a href ='/logout'><button type="button" class="btn btn-primary">Logout</button></a><hr>
+  <% if session[:username] %>
+    <p>Welcome! <%= session[:username] %></p><a href ='/logout'><button type="button" class="btn btn-primary">Logout</button></a>
 
-    <p><b>Recent Tweets</b></p>
-    <% if @user %>
-      <% @user.tweets.reverse.each do |tweet|%>
-        <%= tweet.text %><br><br>
-      <%end%>
-    <% end %>
-    <hr><p><b>Tweet Now!</b></p><br>
-    <form id='tweetform' action='/tweet' method='post'>
+    <hr><p><b>Tweet with Sidekiq!</b></p><br>
+    <form id='tweet' action='/tweet' method='post'>
       <input id="tweet_text" type='text' name='tweet' placeholder='Tweet  Here'>
       <input type='submit' value='Submit' class='button'>
     </form>
-  <%else%>
+
+    <hr><p><b>Tweet Later!</b></p><br>
+    <form id='post_later' action='/post_tweet_later' method='post'>
+      <input id="tweet_text" type='text' name='tweet' placeholder='Tweet  Here'>
+      <input type='text' name='time' placeholder='...seconds later'>
+      <input type='submit' value='Submit' class='button'>
+    </form>
+
+    <p id='status'></p>
+
+    <p id='tweet_loader'></p>
+
+    <hr><p><b>Recent Tweets</b></p>
+    <% if @user %>
+      <% @user.tweets.reverse.each do |tweet| %>
+        <%= tweet.text %><br><br>
+      <% end %>
+    <% end %>
+
+
+  <% else %>
     <a href ='/login'><button type="button" class="btn btn-primary">Sign In with Twitter</button></a>
-  <%end%>
+  <% end %>
 
 </div>
 
